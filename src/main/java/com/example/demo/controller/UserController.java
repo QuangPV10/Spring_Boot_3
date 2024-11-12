@@ -3,24 +3,27 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.ApiResponse;
 import com.example.demo.dto.request.UserCreationRequest;
 import com.example.demo.dto.request.UserUpdateRequest;
+import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-
-    @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping()
-    private ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest userCreationRequest) {
-        ApiResponse<User> apiResponse = new ApiResponse<>();
+    private ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest userCreationRequest) {
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(userService.createUser(userCreationRequest));
         return apiResponse;
     }
@@ -33,15 +36,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    private ApiResponse<User> getUserById(@PathVariable String userId){
-        ApiResponse<User> apiResponse = new ApiResponse<>();
+    private ApiResponse<UserResponse> getUserById(@PathVariable String userId){
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(userService.getUserById(userId));
         return apiResponse;
     }
 
     @PutMapping("/{userId}")
-    private User updateUser(@PathVariable String userId,@RequestBody UserUpdateRequest userUpdateRequest){
-        return userService.updateUser(userId, userUpdateRequest);
+    private ApiResponse<UserResponse> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest userUpdateRequest){
+        ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.updateUser(userId, userUpdateRequest));
+        return apiResponse;
     }
 
     @DeleteMapping("/{userId}")
