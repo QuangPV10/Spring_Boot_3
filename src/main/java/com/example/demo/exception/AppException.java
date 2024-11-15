@@ -1,5 +1,7 @@
 package com.example.demo.exception;
 
+import com.example.demo.enums.ErrorCode;
+
 public class AppException extends RuntimeException {
     private ErrorCode errorCode;
 

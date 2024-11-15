@@ -1,6 +1,7 @@
 package com.example.demo.exception;
 
 import com.example.demo.dto.request.ApiResponse;
+import com.example.demo.enums.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
