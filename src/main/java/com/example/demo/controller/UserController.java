@@ -12,12 +12,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
@@ -77,21 +74,7 @@ public class UserController {
     }
 
     @GetMapping("/my-info")
-    private ApiResponse<UserResponse> getMyUserInfo(@AuthenticationPrincipal Jwt jwt) {
-        // cách 1
-        String username = jwt.getSubject();
-
-        // cách 2: dùng SecurityContextHolder lấy ra user hiện tại
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String name = authentication.getName();
-
-        UserResponse user = userService.getUserByUserName(username);
-
-        if (!Objects.isNull(user)) {
-            return ApiResponse.<UserResponse>builder().result(user).build();
-        }
-
-
-        return null;
+    private ApiResponse<UserResponse> getMyUserInfo() {
+        return ApiResponse.<UserResponse>builder().result(userService.getMyUserInfo()).build();
     }
 }
