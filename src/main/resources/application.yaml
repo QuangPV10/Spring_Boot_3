@@ -18,4 +18,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-    signerKey: "/10o6hUx7oSBfY2jtmNH49y0RiTDgTdkvkbVa+lidNNvzRdRK+uZt0Cwe0um0vJr\n"
+    signer-key: "/10o6hUx7oSBfY2jtmNH49y0RiTDgTdkvkbVa+lidNNvzRdRK+uZt0Cwe0um0vJr\n"
+    valid-duration: 3600 # ins second
+    refreshable-duration: 86400 # seconds
