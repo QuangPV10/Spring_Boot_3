@@ -8,6 +8,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/identity_service
     username: postgres
     password: postgres
+    driverClassName: org.postgresql.Driver
 
   jpa:
     hibernate:
