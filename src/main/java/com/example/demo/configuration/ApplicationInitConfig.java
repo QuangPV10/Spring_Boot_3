@@ -26,7 +26,7 @@ public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
 
     @Bean
-    @ConditionalOnProperty(prefix = "spring", value = "datasource.driverClassName", havingValue = "org.hibernate.dialect.PostgreSQLDialect")
+    @ConditionalOnProperty(prefix = "spring.jpa.properties.hibernate", value = "dialect", havingValue = "org.hibernate.dialect.PostgreSQLDialect")
     ApplicationRunner applicationRunner(UserRepository userRepository) {
         log.info("run applicationRunner");
         return args -> {
